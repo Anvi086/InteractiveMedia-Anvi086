@@ -1,38 +1,162 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Assignment 2</title>
+    <!-- add the font family of your choice -->
+    <link rel="stylesheet" href="assignment2-reset.css" />
+    <link rel="stylesheet" href="assignment2-style.css" />
+    <script src="assignment2-script.js" defer></script>
+  </head>
+  <body>
+    <!-- Header Section -->
+    <header>
+      <h1>Browser-based Interactive Experiments</h1>
 
-<!-- !!!!! -->
-<!--    change this to refer to your specific page  -->
-    <title>Assignment 1 </title>
+      <div class="mainNavContainer">
+        <nav>
+          <a href="index.html">Home Page</a>
+          <a href="assignment1.html">Assignment 1</a>
+          <a href="assignment3.html">Assignment 3</a>
+        </nav>
+      </div>
+    </header>
 
-<!-- !!!!! -->
-<!--  change this to your preferred icon  -->
-    <!-- favicon was sourced from favicon.io but the original graphics are copyright 2020 Twitter, Inc
-    and other contributors -->
-    <!-- They are licensed under CC-BY 4.0 as linked below -->
-    <!-- https://creativecommons.org/licenses/by/4.0/ -->
-    <link rel="icon" type="image/png" href="./assets/icons/favicon.png">
+    <h2>Beef and Cheese Sandwich Recipe</h2>
 
-     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <div class="controls-bar">
+      <button id="theme-btn" onclick="cycleTheme()">Dark</button>
 
-    <!-- to end the main page i linked my github profile -->
+      <nav class="jump-links">
+        <a href="#ingredients">Ingredients</a>
+        <a href="#video">Video</a>
+      </nav>
+    </div>
 
-<footer>
-    <p>
-        Page maintained by:
-        <a href="https://github.com/Anvi086" target="_blank">
-        Anvi Kashelikar
-        </a>
-    </p>
-</footer>
+    <img src="sandwich-img.png" alt="Beef and cheese hoagie sandwich" class="sandwich-img">
 
-</body>
+    <p class="p1"><strong>Beef and cheese hoagie sandwich</strong></p>
+
+    <section id="ingredients" class="recipe-section">
+
+      <div class="ingredients-list">
+        <h3><strong>Ingredients</strong></h3>
+        <ul>
+          <li><input type="checkbox" id="ing1"><label for="ing1">6 hoagie rolls</label></li>
+          <li><input type="checkbox" id="ing2"><label for="ing2">2 tbsp oil</label></li>
+          <li><input type="checkbox" id="ing3"><label for="ing3">1 lb ground beef</label></li>
+          <li><input type="checkbox" id="ing4"><label for="ing4">1 small onion, finely chopped</label></li>
+          <li><input type="checkbox" id="ing5"><label for="ing5">2 tsp burger seasoning</label></li>
+          <li><input type="checkbox" id="ing6"><label for="ing6">1 green bell pepper, finely chopped</label></li>
+          <li><input type="checkbox" id="ing7"><label for="ing7">1 clove garlic, minced</label></li>
+          <li><input type="checkbox" id="ing8"><label for="ing8">1¼ cup cream of mushroom soup</label></li>
+          <li><input type="checkbox" id="ing9"><label for="ing9">2 tsp Worcestershire sauce</label></li>
+          <li><input type="checkbox" id="ing10"><label for="ing10">Salt and pepper, to taste</label></li>
+          <li><input type="checkbox" id="ing11"><label for="ing11">1-2 cups grated cheddar cheese</label></li>
+        </ul>
+      </div>
+
+      <div class="side-column">
+        <div class="recipe-info">
+          <div class="info-box">Prep<br><strong>10 min</strong></div>
+          <div class="info-box">Cook<br><strong>15 min</strong></div>
+          <div class="info-box">Total<br><strong>30 min</strong></div>
+          <div class="info-box">Servings<br><strong>4</strong></div>
+        </div>
+
+        <div class="nutrition">
+          <h3><strong>Nutrition</strong></h3>
+          <p>Serving: 1g<br>Calories: 520kcal</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Main Content Section -->
+    <main class="container" id="video">
+      <div class="recipe-columns">
+
+        <!-- LEFT: Video + controls -->
+        <div class="media-player">
+          <video id="custom-video-player" controls>
+            <source
+              src="The Secret Behind This Beef & Cheese Sandwich.mp4"
+              type="video/mp4"
+            />
+          </video>
+
+          <div class="custom-controls">
+            <button id="rewind-btn" onclick="rewind()">
+              <img src="icons/icons8-rewind-30.png" alt="Rewind 10 seconds" width="24" height="24" />
+            </button>
+
+            <button id="play-pause-btn" onclick="togglePlayPause()">
+              <img
+                id="play-pause-img"
+                src="https://img.icons8.com/ios-glyphs/30/play--v1.png"
+                alt="Play Button"
+                width="24"
+                height="24"
+              />
+            </button>
+
+            <div class="progress-bar">
+              <span id="progress-bar-fill"></span>
+            </div>
+
+            <button id="forward-btn" onclick="fastForward()">
+              <img src="icons/icons8-fast-forward-30.png" alt="Fast forward 10 seconds" width="24" height="24" />
+            </button>
+
+            <button id="fullscreen-btn" onclick="toggleFullscreen()">
+              <img src="icons/icons8-full-screen-30.png" alt="Toggle fullscreen" width="24" height="24" />
+            </button>
+          </div>
+        </div>
+
+        <!-- RIGHT: Instructions -->
+        <div class="instructions-list">
+          <h3>Instructions</h3>
+          <ol id="instructions-ol">
+            <li>
+              <button class="step-btn" data-time="5">1</button>
+              <p>Start by heating 2 tablespoons of oil in a large skillet over medium-high heat. We want that oil nice and hot before we add in the beef.</p>
+            </li>
+            <li>
+              <button class="step-btn" data-time="65">2</button>
+              <p>Add the 1 lb of ground beef and the finely chopped onion to the skillet. Sauté for 7-10 minutes, or until the beef is browned and the onion is soft and translucent. Sprinkle in the 2 teaspoons of McCormick's Montreal Steak Spice to give that beef an extra kick of flavor.</p>
+            </li>
+            <li>
+              <button class="step-btn" data-time="150">3</button>
+              <p>Toss in the chopped green bell pepper and minced garlic. Let them cook together with the beef for about 3 minutes, just enough to soften the pepper and release that wonderful garlic aroma.</p>
+            </li>
+            <li>
+              <button class="step-btn" data-time="195">4</button>
+              <p>Now, it's time to add the creamy element. Pour in the 1 ¼ cup of cream of mushroom soup and stir in the 2 teaspoons of Worcestershire sauce. Season with salt and pepper to taste. Stir everything together and let it cook for another 5 minutes, allowing all the flavors to meld into one delicious mixture.</p>
+            </li>
+            <li>
+              <button class="step-btn" data-time="290">5</button>
+              <p>Turn off the heat and fold in 1 ½ cups of grated cheddar cheese. The residual heat will melt the cheese, creating a creamy, cheesy beef mixture that's absolutely irresistible.</p>
+            </li>
+            <li>
+              <button class="step-btn" data-time="360">6</button>
+              <p>Spoon that cheesy beef mixture onto the hoagie rolls. Be generous—you want every bite to be packed with flavor. Serve the sandwiches warm!</p>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+      <p>2026 Media Player Website. All rights reserved.</p>
+      <a href="https://icons8.com/icon/59862/play">Play</a> icon by
+      <a href="https://icons8.com">Icons8</a>
+      <a href="https://icons8.com/icon/61012/pause">Pause</a> icon by
+      <a href="https://icons8.com">Icons8</a>
+    </footer>
+  </body>
 </html>

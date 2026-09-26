@@ -1,0 +1,389 @@
+/// - I wanted the default theme to be dark, so I set the default values in the :root selector to dark theme colors.
+:root {
+  --primary-bg-color: #201f1f;
+  --text-color: #eeeeee;
+  --main-bg-color: #000000;
+  --main-text-color: #ffffff;
+  --main-btn-bg-color: #555555;
+  --box-bg-color: #773707;
+}
+
+:root[data-theme="light"] {
+  --primary-bg-color: #ffedd6;
+  --text-color: #333;
+  --main-bg-color: #333;
+  --main-text-color: #fff;
+  --main-btn-bg-color: #938989;
+  --box-bg-color: #f19b08;
+}
+
+:root[data-theme="dark"] {
+  --primary-bg-color: #201f1f;
+  --text-color: #eeeeee;
+  --main-bg-color: #000000;
+  --main-text-color: #ffffff;
+  --main-btn-bg-color: #555555;
+  --box-bg-color: #773707;
+}
+
+:root[data-theme="high-contrast"] {
+  --primary-bg-color: #000000;
+  --text-color: #ffffff;
+  --main-bg-color: #181818;
+  --main-text-color: #ffff00;
+  --main-btn-bg-color: #4e4e4e;
+  --box-bg-color: #c9810c;
+}
+
+body,
+h1 {
+  font-size: 25px;
+}
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  margin: 12px 0;
+  text-align: center;
+}
+
+body {
+  font-family: "Arial", sans-serif;
+  background-color: var(--primary-bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.container {
+  max-width: 1400px;
+  width: 100%;
+  padding: 10px;
+}
+
+/* Header styling */
+header {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  padding: 25px 0;
+  text-align: center;
+  width: 100%;
+  position: relative;
+}
+
+#theme-btn {
+  background-color: var(--main-btn-bg-color);
+  color: var(--main-text-color);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.controls-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 4px 16px;
+  box-sizing: border-box;
+}
+
+.left-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.jump-links {
+  display: flex;
+  gap: 12px;
+}
+
+.jump-links a {
+  background-color: var(--main-btn-bg-color);
+  color: var(--main-text-color);
+  text-decoration: none;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.jump-links a:hover {
+  opacity: 0.85;
+}
+
+/* Corner nav (Home Page / Assignment 1 / Assignment 3) */
+.mainNavContainer {
+  position: absolute;
+  top: 8px;
+  left: 16px;
+}
+
+.mainNavContainer nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  margin-top: 0;
+}
+
+.mainNavContainer nav a {
+  font-size: 0.8rem;
+  text-decoration: underline;
+  color: var(--main-text-color);
+}
+
+/* Navigation styling */
+nav {
+  margin-top: 20px;
+  text-align: center;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+nav ul li {
+  margin-right: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.sandwich-img {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto 4px;
+}
+
+.p1 {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* Recipe top section: ingredients / info / nutrition */
+.recipe-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2.5rem;
+  width: 100%;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.ingredients-list {
+  flex: 0 1 auto;
+  width: fit-content;
+  max-width: 600px;
+  border: 1px solid var(--text-color);
+  background-color: var(--box-bg-color);
+  padding: 12px 24px;
+  box-sizing: border-box;
+}
+
+.ingredients-list ul {
+  margin-top: 8px;
+}
+
+.ingredients-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  white-space: nowrap;
+}
+
+.ingredients-list input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  margin: 0;
+  accent-color: var(--main-bg-color);
+}
+
+.ingredients-list label {
+  cursor: pointer;
+}
+
+.side-column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 0 1 auto;
+}
+
+.recipe-info {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  border: 1px solid var(--text-color);
+  background-color: var(--box-bg-color);
+  padding: 10px 16px;
+  box-sizing: border-box;
+}
+
+.info-box {
+  text-align: center;
+  padding: 4px 8px;
+  font-size: 0.85rem;
+}
+
+.info-box strong {
+  display: block;
+  font-size: 1rem;
+  margin-top: 2px;
+}
+
+.nutrition {
+  border: 1px solid var(--text-color);
+  background-color: var(--box-bg-color);
+  padding: 12px 16px;
+  box-sizing: border-box;
+}
+
+.nutrition h3 {
+  margin-bottom: 4px;
+}
+
+/* Media player styling */
+.media-player {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.media-player video {
+  max-width: 100%;
+}
+
+.recipe-columns {
+  display: flex;
+  align-items: flex-start;
+  gap: 2.5rem;
+  width: 100%;
+  flex-wrap: nowrap;
+  margin-top: 96px;
+}
+
+.recipe-columns .media-player {
+  flex: 1.6 1 0;
+  min-width: 0;
+  max-width: 800px;
+}
+
+.instructions-list {
+  flex: 1 1 0;
+  min-width: 0;
+  border: 1px solid var(--text-color);
+  background-color: var(--box-bg-color);
+  padding: 12px 20px;
+  box-sizing: border-box;
+  font-size: 0.9rem;
+}
+
+.instructions-list ol {
+  list-style: none;
+  margin-top: 8px;
+  padding: 0;
+}
+
+.instructions-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.instructions-list li p {
+  margin: 0;
+}
+
+.step-btn {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--main-btn-bg-color);
+  color: var(--main-text-color);
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-btn:hover {
+  opacity: 0.8;
+}
+
+.step-btn.active {
+  background-color: var(--main-bg-color);
+  outline: 2px solid var(--text-color);
+}
+
+.custom-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.custom-controls button {
+  background-color: var(--main-btn-bg-color);
+  color: var(--main-text-color);
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+.progress-bar span {
+  display: block;
+  height: 100%;
+  background-color: var(--main-bg-color);
+  width: 0;
+  transition: width 0.3s ease;
+}
+
+/* Footer styling */
+footer {
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  text-align: center;
+  padding: 6px 0;
+  width: 100%;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
