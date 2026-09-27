@@ -1,4 +1,4 @@
-/* I I wanted the default theme to be dark, so I set the default values in the : root selector to dark theme colors. */
+/* I I wanted the default theme to be light, so I set the default values in the : root selector to light theme colors. */
 
 /* I chose to do the theme thing with a dark theme, a light theme and a high contrast theme mainly fo 2 reasons 
 1st is I personally like having all of my screens in dark mode, so I wanted to make that the default theme. 
@@ -6,12 +6,13 @@ And I wanted to make sure that the website was accessible to people with visual 
  so I added a high contrast theme as well.*/ 
 
 :root {
-  --primary-bg-color: #201f1f;
-  --text-color: #eeeeee;
-  --main-bg-color: #000000;
-  --main-text-color: #ffffff;
-  --main-btn-bg-color: #555555;
-  --box-bg-color: #773707;
+  --primary-bg-color: #ffedd6;
+  --text-color: #333;
+  --main-bg-color: #333;
+  --main-text-color: #fff;
+  --main-btn-bg-color: #938989;
+  --box-bg-color: #f19b08;
+  
 }
 
 /* Instead of using pure white for my light theme, I chose to use a slightly warmer cream shade so that it would be 
