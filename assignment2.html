@@ -4,12 +4,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Assignment 2</title>
-    <!-- add the font family of your choice -->
+    <!-- I used the partial website code that by given to us to build this website and created 
+     separate css and js sections for assignment 2 -->
     <link rel="stylesheet" href="assignment2-reset.css" />
     <link rel="stylesheet" href="assignment2-style.css" />
     <script src="assignment2-script.js" defer></script>
   </head>
   <body>
+
+    <!-- !!!!! -->
+<!--  Design Process  -->
+<!-- I built a custom media player around a cooking tutorial (beef and cheese hoagie recipe) 
+    so the features would actually make sense in context. Kept the native <video> element 
+    instead of a YouTube embed since the point was building my own controls. Main feature is 
+    linking each instruction step to a video timestamp, so clicking a step jumps straight to 
+    that point. Also added checkboxes on the ingredients as a shopping checklist, and a 
+    dark/light/high-contrast theme toggle for accessibility. -->
+
+
+
+<!-- !!!! -->
+<!-- AI Assistance disclosure -->
+<!--  I used Claude Anthropic AI) throughout the development of this assignment, mainly by 
+      asking it for help whenever I ran into an issue or problem I couldn't solve on my own — 
+      for example, when i was trying to align the video and the instructions side by side, 
+      I was having trouble with the flexbox layout and Claude helped me figure out how to fix it.
+      I also had some problems while trying to align all the icons and i got help with that as well. 
+      All ideas, opinions, and personal reflections in the responses below are my 
+      own; AI assistance was limited to fixing code problems as they came up, structural 
+      suggestions, and light editing, which I reviewed and approved before including.  -->
+
+
+    <!-- !!!!! -->
+<!-- Video Attribution -->
+<!-- The tutorial video used in this assignment, "The Secret Behind This Beef & Cheese 
+    Sandwich," was sourced from YouTube: https://youtu.be/3KzrBUGLI0w - created by 
+    Smokin' & Grillin with AB. The video is licensed under a Creative Commons Attribution 
+    license (reuse allowed), which lets me reuse it as long as I credit the creator. I 
+    downloaded the video and hosted it directly on my own site so it could be played 
+    through my custom <video> element rather than relying on an embedded YouTube player. -->
+
+
     <!-- Header Section -->
     <header>
       <h1>Browser-based Interactive Experiments</h1>
@@ -25,23 +60,45 @@
 
     <h2>Beef and Cheese Sandwich Recipe</h2>
 
+      <!-- i added this thin bar for extra controls (theme toggle + jump 
+    links) so they're not crammed into the header with the h1 -->
+
     <div class="controls-bar">
+
+      <!-- i chose to make only one button that cycles dark -> light -> high-contrast 
+      instead of three separate toggle buttons, because it felt cleaner -->
+
       <button id="theme-btn" onclick="cycleTheme()">Dark</button>
 
+        <!-- and i put jump links to ingredients/video since there's a fair 
+      bit to scroll past on smaller screens -->
+
       <nav class="jump-links">
-        <a href="#ingredients">Ingredients</a>
-        <a href="#video">Video</a>
+        <a href="#ingredients">Jump to Ingredients</a>
+        <a href="#video">Jump to Video</a>
       </nav>
     </div>
+
+     <!-- I got the sandwich image from the website - from where I also sourced all of my information 
+      website link - https://smokinandgrillinwitab.com/beef-and-cheese-sandwich-your-ultimate-comfort-food/ -->
 
     <img src="sandwich-img.png" alt="Beef and cheese hoagie sandwich" class="sandwich-img">
 
     <p class="p1"><strong>Beef and cheese hoagie sandwich</strong></p>
 
+    <img src="about-the-chef.png" alt="About chef AB" class="about-img">
+
+<!-- I grouped the ingredients, info (like prep time etc.) and nutrition together so it's all 
+    visible before you get to the video/instructions further down -->
+
     <section id="ingredients" class="recipe-section">
 
       <div class="ingredients-list">
-        <h3><strong>Ingredients</strong></h3>
+        <h3><strong>Ingredients </strong></h3>
+
+        <!-- I also added checkboxes to each ingredient so that A - users can track the ingredients as they gather them and
+         B - to make it interactive -->
+        
         <ul>
           <li><input type="checkbox" id="ing1"><label for="ing1">6 hoagie rolls</label></li>
           <li><input type="checkbox" id="ing2"><label for="ing2">2 tbsp oil</label></li>
@@ -57,6 +114,7 @@
         </ul>
       </div>
 
+      <!-- I also added boxes to the side column for recipe info and nutrition -->
       <div class="side-column">
         <div class="recipe-info">
           <div class="info-box">Prep<br><strong>10 min</strong></div>
@@ -74,17 +132,29 @@
     </section>
 
     <!-- Main Content Section -->
+
+    <!-- put the video and instructions side by side here instead of 
+    stacking so that you are able to see the video and instructions at the same time as you go along -->
+
+
     <main class="container" id="video">
       <div class="recipe-columns">
 
         <!-- LEFT: Video + controls -->
         <div class="media-player">
           <video id="custom-video-player" controls>
+
+       <!-- video licensed under CC BY - see attribution comment at top of file 
+       and visible credit in the footer -->
+
             <source
               src="The Secret Behind This Beef & Cheese Sandwich.mp4"
               type="video/mp4"
             />
           </video>
+
+
+          <!-- I got the icons from icons8.com that were provided on canvas and used those to create the custom controls -->
 
           <div class="custom-controls">
             <button id="rewind-btn" onclick="rewind()">
@@ -116,8 +186,16 @@
         </div>
 
         <!-- RIGHT: Instructions -->
+
+ <!-- this is my main interactive feature - each step button has 
+        a data-time attribute with its timestamp in seconds, so clicking 
+        a step number jumps the video straight to that point instead of 
+        scrubbing through manually. JS also toggles an "active" class on 
+        whichever step matches the video's current time.  --> 
+
         <div class="instructions-list">
           <h3>Instructions</h3>
+          <p>  (click a step number to jump to that point in the video.) </p>
           <ol id="instructions-ol">
             <li>
               <button class="step-btn" data-time="5">1</button>
@@ -151,12 +229,24 @@
     </main>
 
     <!-- Footer Section -->
-    <footer>
-      <p>2026 Media Player Website. All rights reserved.</p>
-      <a href="https://icons8.com/icon/59862/play">Play</a> icon by
-      <a href="https://icons8.com">Icons8</a>
-      <a href="https://icons8.com/icon/61012/pause">Pause</a> icon by
-      <a href="https://icons8.com">Icons8</a>
-    </footer>
-  </body>
-</html>
+
+   <footer>
+  <p>2026 Media Player Website. All rights reserved.</p>
+
+  <p>
+    Recipe video "The Secret Behind This Beef & Cheese Sandwich" by
+    <a href="https://youtube.com/@SmokinandGrillinwitAB" target="_blank">Smokin' & Grillin with AB</a>,
+    used under a <a href="https://support.google.com/youtube/answer/2797468" target="_blank">Creative Commons Attribution license</a>.
+  </p>
+
+  <a href="https://icons8.com/icon/59862/play">Play</a> icon by
+  <a href="https://icons8.com">Icons8</a>
+  <a href="https://icons8.com/icon/61012/pause">Pause</a> icon by
+  <a href="https://icons8.com">Icons8</a>
+  <a href="[REWIND ICON URL]">Rewind</a> icon by
+  <a href="https://icons8.com">Icons8</a>
+  <a href="[FAST FORWARD ICON URL]">Fast forward</a> icon by
+  <a href="https://icons8.com">Icons8</a>
+  <a href="[FULLSCREEN ICON URL]">Fullscreen</a> icon by
+  <a href="https://icons8.com">Icons8</a>
+</footer>

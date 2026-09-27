@@ -1,4 +1,10 @@
-/// - I wanted the default theme to be dark, so I set the default values in the :root selector to dark theme colors.
+/* I I wanted the default theme to be dark, so I set the default values in the : root selector to dark theme colors. */
+
+/* I chose to do the theme thing with a dark theme, a light theme and a high contrast theme mainly fo 2 reasons 
+1st is I personally like having all of my screens in dark mode, so I wanted to make that the default theme. 
+And I wanted to make sure that the website was accessible to people with visual impairments,
+ so I added a high contrast theme as well.*/ 
+
 :root {
   --primary-bg-color: #201f1f;
   --text-color: #eeeeee;
@@ -7,6 +13,9 @@
   --main-btn-bg-color: #555555;
   --box-bg-color: #773707;
 }
+
+/* Instead of using pure white for my light theme, I chose to use a slightly warmer cream shade so that it would be 
+easier on the eyes, and I used a dark grey for the text so that it would be readable but not too harsh. */
 
 :root[data-theme="light"] {
   --primary-bg-color: #ffedd6;
@@ -26,6 +35,12 @@
   --box-bg-color: #773707;
 }
 
+/* High-contrast theme: I picked pure black/white/yellow because
+   yellow-on-black is one of the highest-contrast colour
+   combinations available and is commonly recommended for
+   accessibility (WCAG contrast guidance), which matters since
+   accessibility was one of my design goals for this assignment */ 
+
 :root[data-theme="high-contrast"] {
   --primary-bg-color: #000000;
   --text-color: #ffffff;
@@ -34,6 +49,10 @@
   --main-btn-bg-color: #4e4e4e;
   --box-bg-color: #c9810c;
 }
+
+/* i inceresed the font size of the body and h1 so that they would be more readable, and removed the default margin 
+and padding from p and ul so that I could control the spacing myself. I also increased the font size to make the readbilty 
+of the text better, as when someone is cooking their phone or laptop may not necessarily be very close to them */
 
 body,
 h1 {
@@ -49,6 +68,9 @@ h2 {
   margin: 12px 0;
   text-align: center;
 }
+
+/* used flexbox on body to centre the whole page layout, so the 
+container stays centred no matter the screen width */
 
 body {
   font-family: "Arial", sans-serif;
@@ -77,6 +99,9 @@ header {
   position: relative;
 }
 
+/* styled the theme button like a little pill so it doesn't compete with 
+the h1, but still looks clickable */
+
 #theme-btn {
   background-color: var(--main-btn-bg-color);
   color: var(--main-text-color);
@@ -85,6 +110,10 @@ header {
   font-size: 0.8rem;
   cursor: pointer;
 }
+
+/* added this thin bar under the header for extra controls (theme toggle 
++ jump links), kind of inspired by the top bar on recipe sites like 
+RecipeTin Eats */
 
 .controls-bar {
   display: flex;
@@ -122,7 +151,10 @@ header {
   opacity: 0.85;
 }
 
-/* Corner nav (Home Page / Assignment 1 / Assignment 3) */
+/* Corner nav (Home Page / Assignment 1 / Assignment 3) - positioned 
+this absolutely in the top left of the header, separate from the main 
+recipe nav below, so it's clearly site-wide nav vs recipe nav */
+
 .mainNavContainer {
   position: absolute;
   top: 8px;
@@ -166,13 +198,26 @@ nav a {
 
 .sandwich-img {
   display: block;
-  max-width: 600px;
+  max-width: 750px;
   margin: 0 auto 4px;
 }
 
 .p1 {
   text-align: center;
   margin-bottom: 8px;
+}
+
+/* styled the about-the-chef image to sit above the ingredients section, 
+capped its width so it doesn't dominate the page like the hero sandwich 
+image does, and centred it to match that same treatment */
+
+.about-img {
+  display: block;
+  max-width: 600px;
+  width: 100%;
+  margin: 40px auto 40px;
+  border: 1px solid var(--text-color);
+  box-sizing: border-box;
 }
 
 /* Recipe top section: ingredients / info / nutrition */
@@ -212,6 +257,11 @@ nav a {
   margin-bottom: 6px;
   white-space: nowrap;
 }
+
+/* added a checkbox to every ingredient as a little extra interactive 
+feature - lets you tick things off as you grab them. sized these up a 
+bit and added accent-color so they're easier to see against the dark 
+theme */
 
 .ingredients-list input[type="checkbox"] {
   width: 16px;
