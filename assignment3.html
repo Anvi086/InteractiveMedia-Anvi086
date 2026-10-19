@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photobooth</title>
+<link rel="stylesheet" href="assignment3-style.css">
+</head>
+<body>
+
+ <header>
+      <h1>Browser-based Interactive Project</h1>
+
+      <div class="mainNavContainer">
+        <nav>
+          <a href="index.html">Home Page</a>
+          <a href="assignment1.html">Assignment 1</a>
+          <a href="assignment2.html">Assignment 2</a>
+        </nav>
+      </div>
+    </header>
+
+<main>
+  <h2 class="title">Photobooth</h2>
+
+  <div class="booth">
+    <!-- LEFT: frame colours -->
+    <section class="side">
+      <h3>Frame Colours</h3>
+      <div class="panel" id="colour-panel"></div>
+    </section>
+
+    <!-- MIDDLE: strip + buttons -->
+    <section class="strip-wrap">
+      <div id="strip">
+        <div class="slot" data-slot="0"><span>photo 1</span></div>
+        <div class="slot" data-slot="1"><span>photo 2</span></div>
+        <div class="slot" data-slot="2"><span>photo 3</span></div>
+      </div>
+      <div class="buttons">
+        <button class="pill" id="upload-btn">Upload<br>Images</button>
+        <button class="pill" id="download-btn">Download<br>Strip</button>
+      </div>
+      <p class="hint" id="hint">Drag a colour onto the strip, drag stickers on, and click a photo box to swap its picture.</p>
+      <input type="file" id="file-input" accept="image/*" multiple hidden>
+      <input type="file" id="single-input" accept="image/*" hidden>
+    </section>
+
+    <!-- RIGHT: stickers -->
+    <section class="side">
+      <h3>Stickers</h3>
+      <div class="panel" id="sticker-panel"></div>
+    </section>
+  </div>
+</main>
+
+<footer>Anvi Kashelikar</footer>
+
+<script src="assignment3-script.js"></script>
+</body>
+</html>
