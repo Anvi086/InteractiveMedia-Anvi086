@@ -8,53 +8,119 @@
 </head>
 <body>
 
- <header>
-      <h1>Browser-based Interactive Project</h1>
+<!-- !!!!! -->
+<!--  Design Process  -->
+<!-- I built a browser-based photobooth where you can make your own photo strip. You upload up
+     to three pictures, choose a frame colour, decorate the strip with stickers and then download
+     the finished strip as a PNG. Frame colours and stickers can be dragged onto the strip (or
+     clicked), and placed stickers can be moved, resized, rotated and deleted. Each photo can be
+     zoomed and repositioned inside its box, so people can crop their pictures however they like.
+     I used the canvas to build the download so the saved image matches what is on screen.
+     I also added a sticker pack dropdown where only the trial pack is available and the other
+     packs are locked, as a mock-up of how this could be part of a bigger project where extra
+     packs are unlocked by subscribing. -->
 
-      <div class="mainNavContainer">
-        <nav>
-          <a href="index.html">Home Page</a>
-          <a href="assignment1.html">Assignment 1</a>
-          <a href="assignment2.html">Assignment 2</a>
-        </nav>
-      </div>
-    </header>
+
+
+<!-- !!!! -->
+<!-- AI Assistance disclosure -->
+<!-- I used Claude (Anthropic AI) throughout the development of this assignment, mainly by
+      asking it for help whenever I ran into an issue or problem I couldn't solve on my own.
+      I asked Claude to explain certain things to me, like how to add the upload images and
+      download strip functions, and how to make the uploaded images resizable (zoom in, zoom
+      out and reposition). It also helped me with layout problems, such as centring the photo
+      strip with the side panels and lining up the header, and with extra features like the 
+      sticker pack dropdown. All ideas, opinions, and personal reflections in the responses 
+      are my own; AI assistance was limited to explaining things,fixing code problems as they 
+      came up, and structural suggestions which I reviewed and approved before including. -->
+
+
+
+
+<!-- header: I used the same style and links as the other assignments so the site feels connected -->
+
+
+<header>
+  <h1>Browser-based Interactive Project</h1>
+
+  <div class="mainNavContainer">
+    <nav>
+      <a href="index.html">Home Page</a>
+      <a href="assignment1.html">Assignment 1</a>
+      <a href="assignment2.html">Assignment 2</a>
+    </nav>
+  </div>
+</header>
 
 <main>
-  <h2 class="title">Photobooth</h2>
+  <!-- instructions (left), title (centre), buttons (right)
+       the hint text doubles as the feedback line: the script changes it to say 'Saved!' -->
+
+  <div class="title-row">
+    <p class="hint" id="hint">Drag a colour onto the strip to change colours,
+      drag stickers on and adjust as you like. To upload an image click on the photo box;
+      scroll or use +/− to zoom, drag to reposition.</p>
+
+    <h2 class="title">Photobooth</h2>
+
+    <div class="top-buttons">
+      <button class="pill" id="download-btn">Download Strip</button>
+      <button class="pill" id="upload-btn">Upload Images</button>
+    </div>
+  </div>
 
   <div class="booth">
-    <!-- LEFT: frame colours -->
+    <!-- LEFT: frame colours I've added the colour swatches in the js script -->
+
     <section class="side">
       <h3>Frame Colours</h3>
       <div class="panel" id="colour-panel"></div>
     </section>
 
-    <!-- MIDDLE: strip + buttons -->
+    <!-- MIDDLE: strip the photo strip with the three photo slots I took help from AI to 
+     understand how i could implement this-->
+
     <section class="strip-wrap">
       <div id="strip">
         <div class="slot" data-slot="0"><span>photo 1</span></div>
         <div class="slot" data-slot="1"><span>photo 2</span></div>
         <div class="slot" data-slot="2"><span>photo 3</span></div>
       </div>
-      <div class="buttons">
-        <button class="pill" id="upload-btn">Upload<br>Images</button>
-        <button class="pill" id="download-btn">Download<br>Strip</button>
-      </div>
-      <p class="hint" id="hint">Drag a colour onto the strip, drag stickers on, and click a photo box to swap its picture.</p>
+
       <input type="file" id="file-input" accept="image/*" multiple hidden>
       <input type="file" id="single-input" accept="image/*" hidden>
     </section>
 
-    <!-- RIGHT: stickers -->
+    <!-- RIGHT: stickers I added a dropdown for sticker packs where i've added other 
+     types of stickers for different functions so that i can show that this is a part of
+     a bigger project -->
+     
     <section class="side">
       <h3>Stickers</h3>
+      <div class="select-wrap">
+        <select id="pack-select">
+          <option>Trial pack</option>
+          <option data-locked>Wedding (locked)</option>
+          <option data-locked>Birthday (locked)</option>
+          <option data-locked>Graduation (locked)</option>
+        </select>
+      </div>
       <div class="panel" id="sticker-panel"></div>
+      <p id="pack-msg" hidden>This pack is part of Premium. Subscribe to unlock it.</p>
     </section>
   </div>
 </main>
 
-<footer>Anvi Kashelikar</footer>
+<!-- to end the main page i linked my github profile -->
+
+<footer>
+  <p>
+    Page maintained by:
+    <a href="https://github.com/Anvi086" target="_blank">
+      Anvi Kashelikar
+    </a>
+  </p>
+</footer>
 
 <script src="assignment3-script.js"></script>
 </body>
