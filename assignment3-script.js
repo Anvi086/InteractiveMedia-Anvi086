@@ -352,6 +352,7 @@ document.getElementById("download-btn").addEventListener("click", () => {
     ctx.save();
     ctx.translate(el.offsetLeft + w / 2, el.offsetTop + h / 2);   // rotate around the centre
     ctx.rotate(rot);
+    ctx.drawImage(img, -w / 2, -h / 2, w, h);
     ctx.restore();
   });
 
