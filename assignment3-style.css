@@ -1,3 +1,9 @@
+/* Colour: the dark red background with a slightly lighter panel colour is meant to
+   feel like the inside of a photobooth, and it keeps the bright photos and stickers
+   as the focus. I wanted to make it kind of like an actual photobooth like the curtains. 
+    All the colours are CSS variables in :root, so the whole theme can
+   change in one place, which would help if this joins a bigger site. */
+
 :root {
   --bg: #340a0a;
   --panel: #4e2b2a;
@@ -5,6 +11,10 @@
   --text: #ffffff;
   --accent: #c0392b;
 }
+
+/* Type: Times New Roman with wide letter spacing on the headings gives a slightly
+   retro look, like the lettering on a booth. */
+
 * { box-sizing: border-box; }
 body {
   margin: 0;
@@ -16,7 +26,7 @@ body {
   flex-direction: column;
 }
 
-/* ---------- header / nav (copied from assignment 2) ---------- */
+/* Layout: I copied the header from assignment 2 so the pages feel like one site. */
 header {
   background-color: #300303;
   color: #fff;
@@ -57,7 +67,8 @@ main {
   flex: 1; padding: 30px 20px 10px; 
 }
 
-/* title with the instructions tucked into the top-right corner */
+/* instructions on the left, title in the middle, buttons on the right.
+   minmax(0, 1fr) keeps both outer columns equal so the title stays centred  */
 
 .title-row {
   display: grid;
@@ -101,6 +112,12 @@ h2.title { grid-column: 2;
   white-space: nowrap;
 }
 
+/* the booth is the positioning parent for the two side panels.
+   the negative top margin pulls it up closer to the title */
+
+/* Layout: the strip is centred under the title, and the two side panels are
+   positioned beside it, so a wider panel can never push the strip off centre. This
+   was a real problem earlier, when the sticker panel was wider than the colour panel. */
 
 .booth {
   position: relative;
@@ -158,6 +175,9 @@ h2.title { grid-column: 2;
   transition: transform .15s;
 }
 
+ /* i added a hover function so that the swatches and stickers grow slightly on hover, 
+ so you can tell they can be picked up. */
+
 .swatch:hover { 
   transform: scale(1.1);
  }
@@ -166,15 +186,6 @@ h2.title { grid-column: 2;
 }
 
 /* ---------- sticker panel ---------- */
-
-.sticker-item { 
-  width: 90px; 
-  height: 90px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  cursor: grab; 
-}
 
 .sticker-item img {
    max-width: 100%; 
@@ -186,6 +197,20 @@ h2.title { grid-column: 2;
    transform: scale(1.1); 
   }
 
+  /* i made the stickers bigger in the panel so the details are easier to see */
+
+.sticker-item { 
+  width: 110px; height: 110px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  cursor: grab; 
+}
+
+#sticker-panel {
+  grid-template-columns: repeat(3, 110px);
+  gap: 20px;
+}
 
 /* ---------- the strip ---------- */
 
@@ -194,6 +219,9 @@ h2.title { grid-column: 2;
   margin: 0 auto;              /* the strip is centred on the page */
 }
 
+
+/* The strip is a fixed 300 x 668 box with three slots, like a real photobooth strip.
+   Because the size is fixed, small screens are only partly supported. */
 
 #strip {
   position: relative;
@@ -205,6 +233,8 @@ h2.title { grid-column: 2;
   user-select: none;
 }
 
+/* dashed outline appears while something is being dragged over the strip */
+/* Feedback: the outline shows where things can be dropped. */
 #strip.drop-ready { 
   outline-color: #ffffff88; 
 }
@@ -238,7 +268,7 @@ h2.title { grid-column: 2;
 
 .slot:nth-child(3) { top: 396px; background: #c4c4c4; }
 
-
+/* object-fit: contain shows the whole photo without cropping it */
 .slot img.photo {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
@@ -247,6 +277,7 @@ h2.title { grid-column: 2;
   pointer-events: none; -webkit-user-drag: none;
 }
 
+/* the grab and grabbing cursors tell people the photo can be dragged */
 .slot.has-photo { 
   cursor: grab; 
   touch-action: none; 
@@ -260,7 +291,7 @@ h2.title { grid-column: 2;
   display: none; 
 }
 
-/* zoom toolbar on each photo */
+/* i added a zoom toolbar on each photo so that the picture can be zoomed in and out and fit onto the frame */
 .tools {
   position: absolute; 
   left: 50%; bottom: 6px; 
@@ -321,6 +352,7 @@ h2.title { grid-column: 2;
   outline: 2px dashed #fff; 
 }
 
+/* the resize, delete and rotate handles only show on the selected sticker */
 
 .placed .handle, .placed .del, .placed .rotate { 
   display: none; position: absolute; 
@@ -371,18 +403,6 @@ h2.title { grid-column: 2;
   padding: 0;
 }
 
-.sticker-item { 
-  width: 110px; height: 110px; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  cursor: grab; 
-}
-
-#sticker-panel {
-  grid-template-columns: repeat(3, 110px);
-  gap: 20px;
-}
 
 /* ---------- buttons ---------- */
 
@@ -416,6 +436,8 @@ button.pill:hover {
 }
 
 /* ---------- sticker packs drop down ---------- */
+/* the browser's own arrow was too small to see, so appearance: none
+   hides it and the ::after below draws a bigger one */
 
 .select-wrap {
   position: relative;

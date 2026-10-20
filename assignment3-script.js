@@ -1,22 +1,37 @@
-/* =====================================================
-   SETTINGS - change these to match your files
-   ===================================================== */
-const STICKER_FOLDER = "images/";
-const STICKER_FILES = [
+// sticker images attribution (all from Pinterest, accessed October 2026):
+// sticker 1 - https://in.pinterest.com/pin/8936899258660903/
+// sticker 2 - https://in.pinterest.com/pin/1119285313675289801/
+// sticker 3 - https://in.pinterest.com/pin/1128855462873976087/
+// sticker 4 - https://in.pinterest.com/pin/1121326007268148712/
+// sticker 5 - https://in.pinterest.com/pin/1115485401471817962/
+// sticker 6 - https://in.pinterest.com/pin/13792342604495848/
+// sticker 7 - https://in.pinterest.com/pin/706361522850546409/
+// sticker 8 - https://in.pinterest.com/pin/1121326007268148712/
+// sticker 9 - https://in.pinterest.com/pin/785104147593537525/
+
+const STICKER_FOLDER = "images/";        
+const STICKER_FILES = [                      
   "sticker 1.png", "sticker 2.png", "sticker 3.png",
   "sticker 4.png", "sticker 5.png", "sticker 6.png",
   "sticker 7.png", "sticker 8.png", "sticker 9.png"
 ];
 const COLOURS = [
   "#ffffff", "#000000", "#e07570",
-  "#edc79f", "#171a45", "#b388f5",
-  "#66ad56", "#e08fdf", "#c0392b"
+  "#edc79f", "#171a45", "#bd44f1",
+  "#123204", "#e08faf", "#590c03"
 ];
+// photos can be shrunk to half size or enlarged five times
 const MIN_ZOOM = 0.5, MAX_ZOOM = 5;
 
 /* =====================================================
    Setup
    ===================================================== */
+
+// Context: I based this on a real photobooth, where you get a tall strip of three
+// photos and choose the frame colour before it prints. That is why the strip is one
+// fixed box with three slots, and why the colour and sticker panels sit either side
+// of it, like the controls around a machine.
+
 const strip = document.getElementById("strip");
 const hint = document.getElementById("hint");
 const slots = [...document.querySelectorAll(".slot")];
@@ -24,13 +39,22 @@ const SLOT_COLOURS = ["#c4c4c4", "#c4c4c4", "#c4c4c4"];
 let frameColour = getComputedStyle(strip).backgroundColor;
 let selected = null;
 
+/* simple placeholder shown if a sticker file can't be found */
+// Feedback: if a sticker file is missing, a numbered placeholder appears, so a wrong
+// file name is obvious instead of leaving a blank gap.
 function placeholder(n) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect x="6" y="6" width="88" height="88" rx="18" fill="#b9473f"/><text x="50" y="62" font-size="38" text-anchor="middle" fill="#fff" font-family="serif">${n}</text></svg>`;
   return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
 }
 
 /* ---- build colour swatches ---- */
+// built from the COLOURS list so adding a colour needs no HTML
 const colourPanel = document.getElementById("colour-panel");
+
+/* ---- drag and drop: colours and stickers ---- */
+// Usability: I used drag and drop so you can pick up a colour or sticker and put it on the strip, 
+// like decorating a real photo strip. I used the HTML Drag and Drop API for this (MDN, 'HTML Drag and Drop API').
+
 COLOURS.forEach(c => {
   const s = document.createElement("div");
   s.className = "swatch";
@@ -40,16 +64,16 @@ COLOURS.forEach(c => {
   s.addEventListener("dragstart", e => {
     e.dataTransfer.setData("text/colour", c);
     e.dataTransfer.effectAllowed = "copy";
+    // Feedback: the strip gets a dashed outline while something is dragged over it.
     strip.classList.add("drop-ready");
   });
   s.addEventListener("dragend", () => strip.classList.remove("drop-ready"));
-  s.addEventListener("click", () => setFrame(c));
   colourPanel.appendChild(s);
 });
 
 function setFrame(c) {
   strip.style.background = c;
-  frameColour = c;
+  frameColour = c;   // remembered so the download uses the same colour
 }
 
 /* ---- build sticker panel ---- */
@@ -69,11 +93,13 @@ STICKER_FILES.forEach((file, i) => {
     strip.classList.add("drop-ready");
   });
   box.addEventListener("dragend", () => strip.classList.remove("drop-ready"));
-  box.addEventListener("click", () => addSticker(img.src, 110, 500));
+  box.addEventListener("click", () => addSticker(img.src, 110, 500));   // click adds near the bottom
   stickerPanel.appendChild(box);
 });
 
 /* ---- sticker pack dropdown: only the trial pack is free ---- */
+// a mock-up of a subscription: locked packs show a message and the
+// dropdown snaps back to the trial pack
 const packSelect = document.getElementById("pack-select");
 const packMsg = document.getElementById("pack-msg");
 
@@ -95,7 +121,7 @@ strip.addEventListener("drop", e => {
   if (colour) { setFrame(colour); return; }
   if (sticker) {
     const r = strip.getBoundingClientRect();
-    addSticker(sticker, e.clientX - r.left - 40, e.clientY - r.top - 40);
+    addSticker(sticker, e.clientX - r.left - 40, e.clientY - r.top - 40);   // 40 = half the sticker, so it lands under the cursor
   }
 });
 
@@ -121,12 +147,14 @@ function addSticker(src, x, y) {
   rotate.className = "rotate";
   rotate.textContent = "↻";
   rotate.title = "Drag to rotate (hold Shift to snap)";
-  el.dataset.rot = "0";
+  el.dataset.rot = "0";   // rotation is stored here so the download can use it
   el.append(img, handle, del, rotate);
   strip.appendChild(el);
   select(el);
 
   /* move */
+  // Usability: I used pointer events rather than separate mouse and touch code, so one
+  // set of handlers covers both (MDN, 'Pointer events').
   el.addEventListener("pointerdown", e => {
     if (e.target === handle || e.target === del || e.target === rotate) return;
     select(el);
@@ -142,7 +170,7 @@ function addSticker(src, x, y) {
     el.addEventListener("pointerup", up);
   });
 
-  /* resize */
+  /* resize (keeps proportions) */
   handle.addEventListener("pointerdown", e => {
     e.stopPropagation();
     select(el);
@@ -157,7 +185,8 @@ function addSticker(src, x, y) {
     handle.addEventListener("pointerup", up);
   });
 
-  /* rotate */
+  /* rotate: the angle comes from where the pointer is relative to the sticker's centre I added this so that users can rotate stickers
+  and adjust them to their liking */
   rotate.addEventListener("pointerdown", e => {
     e.stopPropagation();
     select(el);
@@ -178,12 +207,17 @@ function addSticker(src, x, y) {
   del.addEventListener("click", e => { e.stopPropagation(); el.remove(); selected = null; });
 }
 
+// Feedback: a selected sticker shows its handles, so you can see what you are editing.
 function select(el) {
   if (selected) selected.classList.remove("selected");
   selected = el;
   if (el) el.classList.add("selected");
 }
+/* click empty space = deselect */
 document.addEventListener("pointerdown", e => { if (!e.target.closest(".placed")) select(null); });
+
+// Future use: dragging is hard for keyboard users. Delete is the only key control so
+// far, so I would add more keyboard controls and alt text.
 document.addEventListener("keydown", e => {
   if ((e.key === "Delete" || e.key === "Backspace") && selected) { selected.remove(); selected = null; }
 });
@@ -195,7 +229,10 @@ const fileInput = document.getElementById("file-input");
 const singleInput = document.getElementById("single-input");
 let slotToReplace = null;
 
-/* per-photo zoom + position, in slot pixels */
+/* per-photo zoom + position, in slot pixels
+   (s = scale, x and y = how far the photo has been dragged) */
+// Future use: photos only live in memory, so large images could slow the page and
+// nothing is saved between visits.
 const view = slots.map(() => ({ s: 1, x: 0, y: 0 }));
 
 function applyView(i) {
@@ -217,6 +254,7 @@ function chooseFor(i) { slotToReplace = i; singleInput.click(); }
 
 slots.forEach((slot, i) => {
   /* toolbar */
+  // Feedback: the photo toolbar fades in when you hover over a photo.
   const tools = document.createElement("div");
   tools.className = "tools";
   const defs = [
@@ -244,7 +282,7 @@ slots.forEach((slot, i) => {
   /* scroll wheel zoom */
   slot.addEventListener("wheel", e => {
     if (!slot.classList.contains("has-photo")) return;
-    e.preventDefault();
+    e.preventDefault();   // stops the whole page scrolling while zooming
     zoomBy(i, e.deltaY < 0 ? 1.08 : 1 / 1.08);
   }, { passive: false });
 
@@ -288,6 +326,8 @@ singleInput.addEventListener("change", () => {
 
 function readInto(file, index) {
   if (!file.type.startsWith("image/")) return;
+  // Photos are read in the browser with FileReader (MDN, 'FileReader'), so nothing
+  // is uploaded to a server.
   const reader = new FileReader();
   reader.onload = () => {
     const slot = slots[index];
@@ -300,7 +340,7 @@ function readInto(file, index) {
     }
     img.src = reader.result;
     slot.classList.add("has-photo");
-    resetView(index);
+    resetView(index);   // a new photo starts at normal size
   };
   reader.readAsDataURL(file);
 }
@@ -308,8 +348,11 @@ function readInto(file, index) {
 /* =====================================================
    Download the strip as a PNG
    ===================================================== */
+// Download: the strip is redrawn onto a canvas at twice the size instead of being
+// screenshotted, so the PNG is sharper than the screen and keeps my zoom, pan and
+// rotation (MDN, 'Canvas API').
 document.getElementById("download-btn").addEventListener("click", () => {
-  select(null);
+  select(null);   // hide the sticker handles so they are not in the picture
   const SCALE = 2;
   const canvas = document.createElement("canvas");
   canvas.width = strip.offsetWidth * SCALE;
@@ -317,9 +360,11 @@ document.getElementById("download-btn").addEventListener("click", () => {
   const ctx = canvas.getContext("2d");
   ctx.scale(SCALE, SCALE);
 
+  /* frame */
   ctx.fillStyle = frameColour;
   ctx.fillRect(0, 0, strip.offsetWidth, strip.offsetHeight);
 
+  /* photos */
   slots.forEach((slot, i) => {
     const x = slot.offsetLeft, y = slot.offsetTop, w = slot.offsetWidth, h = slot.offsetHeight;
     ctx.save();
@@ -345,6 +390,7 @@ document.getElementById("download-btn").addEventListener("click", () => {
     ctx.restore();
   });
 
+  /* stickers */
   strip.querySelectorAll(".placed").forEach(el => {
     const img = el.querySelector("img");
     const w = el.offsetWidth, h = el.offsetHeight;
@@ -356,6 +402,8 @@ document.getElementById("download-btn").addEventListener("click", () => {
     ctx.restore();
   });
 
+  // Feedback: the hint text at the top says 'Saved!' or explains why the download
+  // failed, so the button never just does nothing.
   try {
     const link = document.createElement("a");
     link.download = "my-photobooth-strip.png";
